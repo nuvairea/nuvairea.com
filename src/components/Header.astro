@@ -1,0 +1,23 @@
+<header>
+  <div class="w hd">
+    <a class="logo" href="#top">Paul Oluwadamilare</a>
+    <nav class="links" id="links"><a href="#work">Work</a><a href="#connect">Connect</a></nav>
+    <button class="menu" id="menu" aria-label="Menu"><i></i></button>
+  </div>
+</header>
+
+<script>
+  const links = document.getElementById('links');
+  const menu = document.getElementById('menu');
+
+  if (!(links instanceof HTMLElement) || !(menu instanceof HTMLButtonElement)) {
+    throw new Error('Header menu elements are missing.');
+  }
+
+  menu.addEventListener('click', () => {
+    links.classList.toggle('open');
+  });
+  links.addEventListener('click', () => {
+    links.classList.remove('open');
+  });
+</script>

@@ -1,0 +1,27 @@
+---
+import type { Project } from '../data/projects';
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+const primaryLink = project.links[0];
+---
+
+<div class="eye">Featured project</div>
+<div class="lab">{project.tagline}</div>
+<div class="title">
+  <h3>{project.name}</h3>
+  <a href={primaryLink.href} aria-label={`Open ${project.name}`}>→</a>
+</div>
+<div class="pills">
+  {project.pills.map((pill) => <span class:list={['pill', { live: pill.live }]}>{pill.label}</span>)}
+</div>
+<p class="desc">{project.description}</p>
+<div class="stack">
+  {project.stack.map((item) => <span>{item}</span>)}
+</div>
+<div class="ul">
+  {project.links.map((link) => <a href={link.href}>{link.label}</a>)}
+</div>

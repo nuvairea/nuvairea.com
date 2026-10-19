@@ -1,11 +1,58 @@
 ---
-import Welcome from '../components/Welcome.astro';
+import ConnectRow from '../components/ConnectRow.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import ProjectCard from '../components/ProjectCard.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import projects from '../data/projects';
 ---
 
 <Layout>
-	<Welcome />
+  <Header />
+  <main id="top">
+    <section class="hero">
+      <div class="w">
+        <div class="eye">Developer. Full-stack. Builder.</div>
+        <h1>I build the whole thing, <b>front to back.</b></h1>
+        <p class="sub">I'm Paul. I create practical web apps, clean interfaces, and the backends behind them.</p>
+        <div class="btns">
+          <a class="btn f" href="#work">See my work</a><a class="btn" href="#connect">Get in touch</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" id="work">
+      <div class="w">
+        {projects.map((project) => <ProjectCard project={project} />)}
+      </div>
+    </section>
+
+    <section class="sec conn" id="connect">
+      <div class="w">
+        <div class="eye">Connect</div>
+        <h2 class="connect-heading">Find me <b>online.</b></h2>
+        <p class="sub">Code, projects and the occasional update. Say hi on either.</p>
+        <ConnectRow
+          icon="github"
+          label="GitHub"
+          value="@nuvairea"
+          href="https://github.com/nuvairea"
+        />
+        <ConnectRow
+          icon="email"
+          label="Email"
+          value="nuvairea@gmail.com"
+          href="mailto:nuvairea@gmail.com"
+        />
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="w">
+        <h2>Have a project, or idea worth building?</h2>
+        <a href="mailto:nuvairea@gmail.com">Let's talk →</a>
+      </div>
+    </section>
+  </main>
+  <Footer />
 </Layout>

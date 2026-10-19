@@ -1,0 +1,20 @@
+---
+interface Props {
+  icon: 'github' | 'email';
+  label: string;
+  value: string;
+  href: string;
+}
+
+const { icon, label, value, href } = Astro.props;
+const viewBox = icon === 'github' ? '0 0 16 16' : '0 0 24 24';
+---
+
+<a class="row" href={href}>
+  <div class="ic">
+    <svg aria-hidden="true" viewBox={viewBox}>
+      <use href={`/icons/${icon}.svg#icon`} />
+    </svg>
+  </div>
+  <div><b>{label}</b><span>{value}</span></div>
+</a>
