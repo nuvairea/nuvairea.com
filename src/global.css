@@ -73,7 +73,7 @@ h2 {
 }
 
 h1 {
-  font-size: clamp(66px, 9vw, 88px);
+  font-size: clamp(60px, 9vw, 88px);
   margin: 22px 0 28px;
 }
 
