@@ -1,13 +1,22 @@
 <header>
   <div class="w hd">
     <a class="logo" href="#top">Paul Oluwadamilare</a>
-    <nav class="links" id="links" aria-label="Main">
-      <a href="#work">Work</a>
-      <a href="#connect">Connect</a>
-    </nav>
-    <button class="menu" id="menu" aria-label="Open menu" aria-expanded="false" aria-controls="links">
-      <span></span><span></span><span></span>
-    </button>
+    <div class="right">
+      <nav class="links" id="links" aria-label="Main">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#connect">Connect</a>
+      </nav>
+      <span class="sep" aria-hidden="true"></span>
+      <a class="gh" href="https://github.com/nuvairea" aria-label="GitHub profile">
+        <svg aria-hidden="true" viewBox="0 0 16 16">
+          <use href="/icons/github.svg#icon"></use>
+        </svg>
+      </a>
+      <button class="menu" id="menu" aria-label="Open menu" aria-expanded="false" aria-controls="links">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </div>
   <div class="backdrop" id="backdrop"></div>
 </header>
@@ -78,12 +87,50 @@
     color: var(--ink);
   }
 
+  .right {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+
+  .sep {
+    width: 1px;
+    height: 18px;
+    background: var(--mute);
+    opacity: 0.45;
+  }
+
+  .gh {
+    display: flex;
+    padding: 8px;
+    margin: -8px;
+    color: var(--mute);
+  }
+
+  .gh:hover {
+    color: var(--ink);
+  }
+
+  .gh svg {
+    width: 22px;
+    height: 22px;
+    fill: currentColor;
+  }
+
   .menu,
   .backdrop {
     display: none;
   }
 
   @media (max-width: 640px) {
+    .sep {
+      display: none;
+    }
+
+    .right {
+      gap: 8px;
+    }
+
     .menu {
       all: unset;
       display: flex;
