@@ -18,3 +18,53 @@ const viewBox = icon === 'github' ? '0 0 16 16' : '0 0 24 24';
   </div>
   <div><b>{label}</b><span>{value}</span></div>
 </a>
+
+<style>
+  .row {
+    display: flex;
+    gap: 26px;
+    align-items: center;
+    padding: 30px 0;
+    border-top: 1px solid var(--line);
+    text-decoration: none;
+  }
+
+  .row:last-child {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .ic {
+    width: 62px;
+    height: 62px;
+    border: 1px solid var(--line);
+    display: grid;
+    place-items: center;
+    flex: none;
+    color: var(--acc);
+  }
+
+  .row:hover .ic {
+    background: var(--acc);
+    color: var(--on);
+    border-color: var(--acc);
+  }
+
+  .ic svg {
+    width: 28px;
+    height: 28px;
+    fill: currentColor;
+  }
+
+  .row b {
+    display: block;
+    font-size: 22px;
+    font-weight: 500;
+  }
+
+  .row span {
+    color: var(--mute);
+    font-size: 18px;
+    font-weight: 300;
+    word-break: break-all;
+  }
+</style>
