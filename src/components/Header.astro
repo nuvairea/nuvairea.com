@@ -1,23 +1,196 @@
 <header>
   <div class="w hd">
     <a class="logo" href="#top">Paul Oluwadamilare</a>
-    <nav class="links" id="links"><a href="#work">Work</a><a href="#connect">Connect</a></nav>
-    <button class="menu" id="menu" aria-label="Menu"><i></i></button>
+    <nav class="links" id="links" aria-label="Main">
+      <a href="#work">Work</a>
+      <a href="#connect">Connect</a>
+    </nav>
+    <button class="menu" id="menu" aria-label="Open menu" aria-expanded="false" aria-controls="links">
+      <span></span><span></span><span></span>
+    </button>
   </div>
+  <div class="backdrop" id="backdrop"></div>
 </header>
 
 <script>
   const links = document.getElementById('links');
   const menu = document.getElementById('menu');
+  const backdrop = document.getElementById('backdrop');
 
-  if (!(links instanceof HTMLElement) || !(menu instanceof HTMLButtonElement)) {
+  if (!links || !menu || !backdrop) {
     throw new Error('Header menu elements are missing.');
   }
 
-  menu.addEventListener('click', () => {
-    links.classList.toggle('open');
+  function setOpen(open: boolean) {
+    links!.classList.toggle('open', open);
+    backdrop!.classList.toggle('open', open);
+    menu!.classList.toggle('open', open);
+    menu!.setAttribute('aria-expanded', String(open));
+    menu!.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+
+  menu.addEventListener('click', () => setOpen(!links.classList.contains('open')));
+  backdrop.addEventListener('click', () => setOpen(false));
+  links.addEventListener('click', () => setOpen(false));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') setOpen(false);
   });
-  links.addEventListener('click', () => {
-    links.classList.remove('open');
-  });
+  window.matchMedia('(min-width: 641px)').addEventListener('change', () => setOpen(false));
 </script>
+
+<style>
+  header {
+    border-bottom: 1px solid var(--line);
+    position: relative;
+  }
+
+  .hd {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 76px;
+  }
+
+  .logo {
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-size: 14px;
+    text-decoration: none;
+  }
+
+  .links {
+    display: flex;
+    gap: 28px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .links a {
+    text-decoration: none;
+    color: var(--mute);
+  }
+
+  .links a:hover {
+    color: var(--ink);
+  }
+
+  .menu,
+  .backdrop {
+    display: none;
+  }
+
+  @media (max-width: 640px) {
+    .menu {
+      all: unset;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 7px;
+      padding: 12px 0 12px 12px;
+      cursor: pointer;
+      position: relative;
+      z-index: 30;
+    }
+
+    .menu span {
+      display: block;
+      height: 2px;
+      background: var(--acc);
+      transition:
+        transform 0.3s,
+        opacity 0.2s,
+        width 0.3s;
+    }
+
+    .menu span:nth-child(1) {
+      width: 28px;
+    }
+
+    .menu span:nth-child(2) {
+      width: 23px;
+    }
+
+    .menu span:nth-child(3) {
+      width: 18px;
+    }
+
+    .menu.open span {
+      width: 28px;
+    }
+
+    .menu.open span:nth-child(1) {
+      transform: translateY(9px) rotate(45deg);
+    }
+
+    .menu.open span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu.open span:nth-child(3) {
+      transform: translateY(-9px) rotate(-45deg);
+    }
+
+    .backdrop {
+      display: block;
+      position: fixed;
+      inset: 0;
+      z-index: 10;
+      background: rgba(11, 13, 12, 0.55);
+      backdrop-filter: blur(6px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+
+    .backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .links {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: min(75vw, 400px);
+      z-index: 20;
+      background: var(--bg2);
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 44px;
+      font-size: 20px;
+      letter-spacing: 0.08em;
+      counter-reset: item;
+      transform: translateX(100%);
+      visibility: hidden;
+      transition:
+        transform 0.3s,
+        visibility 0.3s;
+    }
+
+    .links.open {
+      transform: none;
+      visibility: visible;
+    }
+
+    .links a {
+      color: var(--ink);
+      text-align: center;
+    }
+
+    .links a::before {
+      counter-increment: item;
+      content: counter(item, decimal-leading-zero) '.';
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      letter-spacing: 0.1em;
+      color: var(--acc);
+    }
+  }
+</style>
