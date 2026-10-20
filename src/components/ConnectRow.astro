@@ -67,4 +67,29 @@ const viewBox = icon === 'github' ? '0 0 16 16' : '0 0 24 24';
     font-weight: 300;
     word-break: break-all;
   }
+
+  @media (max-width: 640px) {
+    .row {
+      gap: 18px;
+      padding: 22px 0;
+    }
+
+    .ic {
+      width: 52px;
+      height: 52px;
+    }
+
+    .ic svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .row b {
+      font-size: 19px;
+    }
+
+    .row span {
+      font-size: 15px;
+    }
+  }
 </style>
