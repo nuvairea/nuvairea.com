@@ -16,19 +16,30 @@ import projects from '../data/projects';
         <h1>I build the whole thing, <b>front to back.</b></h1>
         <p class="sub lead">I'm Paul. I create practical web apps, clean interfaces, and the backends behind them.</p>
         <div class="btns">
-          <a class="btn f" href="#work">See my work</a><a class="btn" href="#connect">Get in touch</a>
+          <a class="btn f" href="#projects">See my work</a><a class="btn" href="#connect">Get in touch</a>
         </div>
       </div>
     </section>
 
-    <section class="sec" id="work">
-      <div class="w">
+    <section class="about" id="about">
+      <div class="w reveal">
+        <div class="eye">About</div>
+        <h2>Learning by building</h2>
+        <p class="lead">
+          I started in frontend in October 2024 and moved into the backend a year later. I care about
+          interfaces that are clean, accessible and finished down to <strong>the small details.</strong>
+        </p>
+      </div>
+    </section>
+
+    <section class="sec" id="projects">
+      <div class="w reveal">
         {projects.map((project) => <ProjectCard project={project} />)}
       </div>
     </section>
 
     <section class="sec conn" id="connect">
-      <div class="w">
+      <div class="w reveal">
         <div class="eye">Connect</div>
         <h2 class="connect-heading">Find me <b>online.</b></h2>
         <p class="sub lead">Code, projects and the occasional update. Say hi on either.</p>
@@ -48,7 +59,7 @@ import projects from '../data/projects';
     </section>
 
     <section class="cta">
-      <div class="w">
+      <div class="w reveal">
         <h2>Need something built? Let's make it real.</h2>
         <a href="mailto:nuvairea@gmail.com">Hit me up →</a>
       </div>
@@ -92,6 +103,25 @@ import projects from '../data/projects';
     color: var(--on);
   }
 
+  .about {
+    padding: 84px 0;
+    background: var(--bg2);
+  }
+
+  .about h2 {
+    margin-top: 22px;
+  }
+
+  .about p {
+    max-width: 640px;
+    margin: 28px 0 0;
+  }
+
+  .about strong {
+    font-weight: 500;
+    color: var(--ink);
+  }
+
   .sec {
     padding: 84px 0;
     border-top: 1px solid var(--line);
@@ -127,5 +157,32 @@ import projects from '../data/projects';
     text-decoration: none;
     border-bottom: 3px solid var(--bg);
     padding-bottom: 12px;
+  }
+
+  @media (max-width: 640px) {
+    .about,
+    .sec {
+      padding: 56px 0;
+    }
+
+    .about p {
+      font-size: 17px;
+      margin-top: 20px;
+    }
+
+    .conn p.sub {
+      font-size: 17px;
+      margin: 20px 0 32px;
+    }
+
+    .cta {
+      padding: 64px 0;
+    }
+
+    .cta a {
+      font-size: 19px;
+      margin-top: 32px;
+      padding-bottom: 10px;
+    }
   }
 </style>
