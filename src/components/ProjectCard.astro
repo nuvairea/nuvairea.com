@@ -18,10 +18,98 @@ const primaryLink = project.links[0];
 <div class="pills">
   {project.pills.map((pill) => <span class:list={['pill', { live: pill.live }]}>{pill.label}</span>)}
 </div>
-<p class="desc">{project.description}</p>
+<p class="desc lead">{project.description}</p>
 <div class="stack">
   {project.stack.map((item) => <span>{item}</span>)}
 </div>
 <div class="ul">
   {project.links.map((link) => <a href={link.href}>{link.label}</a>)}
 </div>
+
+<style>
+  .lab {
+    font-size: 15px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mute);
+    margin: 34px 0 10px;
+  }
+
+  .title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .title h3 {
+    font-size: clamp(40px, 7vw, 68px);
+    font-weight: 400;
+    letter-spacing: -0.045em;
+    margin: 0;
+    line-height: 1.05;
+  }
+
+  .title a {
+    color: var(--acc);
+    font-size: 38px;
+    text-decoration: none;
+  }
+
+  .pills {
+    display: flex;
+    gap: 10px;
+    margin: 18px 0 22px;
+  }
+
+  .pill {
+    border: 1px solid var(--line);
+    padding: 6px 20px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    background: var(--bg2);
+  }
+
+  .pill.live {
+    color: var(--acc);
+    border-color: var(--acc);
+  }
+
+  .desc {
+    max-width: 640px;
+    margin: 0 0 26px;
+  }
+
+  .stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 0 0 30px;
+  }
+
+  .stack span {
+    border: 1px solid var(--line);
+    padding: 9px 16px;
+    font-size: 14px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--mute);
+  }
+
+  .ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 32px;
+  }
+
+  .ul a {
+    font-weight: 600;
+    font-size: 17px;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 6px;
+    text-decoration-color: var(--acc);
+  }
+</style>
