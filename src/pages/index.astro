@@ -1,4 +1,5 @@
 ---
+import About from '../components/About.astro';
 import ConnectRow from '../components/ConnectRow.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
@@ -14,23 +15,14 @@ import projects from '../data/projects';
       <div class="w">
         <div class="eye">Developer. Craftsman. Builder.</div>
         <h1>I build the whole thing, <b>front to back.</b></h1>
-        <p class="sub lead">I'm Paul. I create practical web apps, clean interfaces, and the backends behind them.</p>
+        <p class="sub lead">I'm Paul. I create practical software, thoughtful interfaces, and the backends behind them.</p>
         <div class="btns">
           <a class="btn f" href="#projects">See my work</a><a class="btn" href="#connect">Get in touch</a>
         </div>
       </div>
     </section>
 
-    <section class="about" id="about">
-      <div class="w reveal">
-        <div class="eye">About</div>
-        <h2>Learning by building</h2>
-        <p class="lead">
-          I started in frontend in October 2024 and moved into the backend a year later. I care about
-          interfaces that are clean, accessible and finished down to <strong>the small details.</strong>
-        </p>
-      </div>
-    </section>
+    <About />
 
     <section class="sec" id="projects">
       <div class="w reveal">
@@ -93,33 +85,19 @@ import projects from '../data/projects';
     padding: 13px 10px;
     font-weight: 600;
     text-decoration: none;
-    border: 1px solid var(--ink);
+    border: 1px solid var(--line);
     font-size: 16px;
+    transition: border-color 0.15s;
+
+    &:hover {
+      border-color: var(--ink);
+    }
   }
 
   .btn.f {
     background: var(--acc);
     border-color: var(--acc);
     color: var(--on);
-  }
-
-  .about {
-    padding: 84px 0;
-    background: var(--bg2);
-  }
-
-  .about h2 {
-    margin-top: 22px;
-  }
-
-  .about p {
-    max-width: 640px;
-    margin: 28px 0 0;
-  }
-
-  .about strong {
-    font-weight: 500;
-    color: var(--ink);
   }
 
   .sec {
@@ -160,18 +138,12 @@ import projects from '../data/projects';
   }
 
   @media (max-width: 640px) {
-    .about,
     .sec {
       padding: 56px 0;
     }
 
     .hero p {
       font-size: 17px;
-    }
-
-    .about p {
-      font-size: 17px;
-      margin-top: 20px;
     }
 
     .conn p.sub {
