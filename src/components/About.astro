@@ -1,0 +1,153 @@
+---
+import { Image } from 'astro:assets';
+import me from '../assets/me.png';
+---
+
+<section class='about' id='about'>
+  <div class='w reveal'>
+    <div class='layout'>
+      <div class='text'>
+        <div class='eye'>About</div>
+        <h2>Learning by building</h2>
+        <p class='lead'>
+          I started in frontend in October 2024 and moved into the backend a year later. I care about interfaces that
+          are clean, accessible and finished down to <strong>the small details.</strong>
+        </p>
+        <p class='lead'>
+          Right now I'm building full web apps, frontend to backend, and trying to pick up something new with every
+          project.
+        </p>
+      </div>
+
+      <div class='pic'>
+        <div class='photo'>
+          <div class='shot'>
+            <Image
+              src={me}
+              alt='Portrait of Paul Oluwadamilare'
+              widths={[480, 800, 1200]}
+              sizes='(min-width: 900px) 40vw, 320px'
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about {
+    padding: 84px 0;
+    background: var(--bg2);
+  }
+
+  .layout {
+    display: grid;
+    gap: 48px;
+  }
+
+  h2 {
+    margin-top: 22px;
+  }
+
+  .text p {
+    max-width: 640px;
+    margin: 28px 0 0;
+  }
+
+  .text p + p {
+    margin-top: 18px;
+  }
+
+  strong {
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  .pic {
+    display: flex;
+    width: 100%;
+    max-width: 340px;
+    margin: 0 auto;
+    padding: 0 14px 14px 0;
+  }
+
+  .photo {
+    position: relative;
+    display: flex;
+    flex: 1;
+    transition: transform 0.3s ease;
+  }
+
+  .photo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 2px solid var(--acc);
+    transform: translate(14px, 14px);
+    transition: transform 0.3s ease;
+  }
+
+  .photo:hover .shot {
+    transform: translate(-6px, -6px);
+  }
+
+  .photo:hover::after {
+    transform: translate(20px, 20px);
+  }
+
+  .shot {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: var(--acc);
+    transition: transform 0.3s ease;
+  }
+
+  .shot :global(img) {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(1);
+    mix-blend-mode: multiply;
+    transition: filter 0.3s ease;
+  }
+
+  .photo:hover .shot :global(img) {
+    filter: none;
+    mix-blend-mode: normal;
+  }
+
+  @media (min-width: 900px) {
+    .layout {
+      grid-template-columns: minmax(0, 1fr) 330px;
+      gap: 72px;
+      align-items: start;
+    }
+
+    .pic {
+      max-width: none;
+      margin: 0;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .about {
+      padding: 56px 0;
+    }
+
+    .text p {
+      font-size: 17px;
+      margin-top: 20px;
+    }
+
+    .text p + p {
+      margin-top: 14px;
+    }
+  }
+</style>
