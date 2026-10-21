@@ -1,16 +1,18 @@
 ---
-import '../global.css';
+import '../styles/global.css';
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang='en'>
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta charset='utf-8' />
+    <meta name='viewport' content='width=device-width, initial-scale=1, viewport-fit=cover' />
     <meta
-      name="description"
-      content="Paul Oluwadamilare is a full-stack developer building practical web apps, clean interfaces, and the backends behind them."
+      name='description'
+      content='Paul Oluwadamilare is a full-stack developer building practical web apps, clean interfaces, and the backends behind them.'
     />
+    <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
+    <link rel='icon' href='/favicon.ico' />
     <title>Paul Oluwadamilare</title>
     <script is:inline>
       document.documentElement.classList.add('js');
@@ -18,15 +20,18 @@ import '../global.css';
   </head>
   <body>
     <slot />
-  <script>
+    <script>
       const items = document.querySelectorAll('.reveal');
       const io = new IntersectionObserver(
         (entries) => {
           for (const entry of entries) {
-            entry.target.classList.toggle('in', entry.isIntersecting);
+            if (entry.isIntersecting) {
+              entry.target.classList.add('in');
+              io.unobserve(entry.target);
+            }
           }
         },
-        { threshold: 0.12, rootMargin: '0px 0px -6% 0px' }
+        { threshold: 0.12, rootMargin: '0px 0px -6% 0px' },
       );
       items.forEach((el) => io.observe(el));
     </script>
