@@ -10,50 +10,42 @@ import projects from '../data/projects';
 
 <Layout>
   <Header />
-  <main id="top">
-    <section class="hero">
-      <div class="w">
-        <div class="eye">Developer. Craftsman. Builder.</div>
+  <main id='top'>
+    <section class='hero'>
+      <div class='w'>
+        <div class='eye'>Developer. Craftsman. Builder.</div>
         <h1>I build the whole thing, <b>front to back.</b></h1>
-        <p class="sub lead">I'm Paul. I create practical software, thoughtful interfaces, and the backends behind them.</p>
-        <div class="btns">
-          <a class="btn f" href="#projects">See my work</a><a class="btn" href="#connect">Get in touch</a>
+        <p class='sub lead'>
+          I'm Paul. I create practical software, thoughtful interfaces, and the backends behind them.
+        </p>
+        <div class='btns'>
+          <a class='btn f' href='#projects'>See my work</a><a class='btn' href='#connect'>Get in touch</a>
         </div>
       </div>
     </section>
 
     <About />
 
-    <section class="sec" id="projects">
-      <div class="w reveal">
+    <section class='sec' id='projects'>
+      <div class='w reveal'>
         {projects.map((project) => <ProjectCard project={project} />)}
       </div>
     </section>
 
-    <section class="sec conn" id="connect">
-      <div class="w reveal">
-        <div class="eye">Connect</div>
-        <h2 class="connect-heading">Find me <b>online.</b></h2>
-        <p class="sub lead">Code, projects and the occasional update. Say hi on either.</p>
-        <ConnectRow
-          icon="github"
-          label="GitHub"
-          value="@nuvairea"
-          href="https://github.com/nuvairea"
-        />
-        <ConnectRow
-          icon="email"
-          label="Email"
-          value="nuvairea@gmail.com"
-          href="mailto:nuvairea@gmail.com"
-        />
+    <section class='sec conn' id='connect'>
+      <div class='w reveal'>
+        <div class='eye'>Connect</div>
+        <h2 class='connect-heading'>Find me <b>online.</b></h2>
+        <p class='sub lead'>Code, projects and the occasional update. Say hi on either.</p>
+        <ConnectRow icon='github' label='GitHub' value='@nuvairea' href='https://github.com/nuvairea' />
+        <ConnectRow icon='email' label='Email' value='nuvairea@gmail.com' href='mailto:nuvairea@gmail.com' />
       </div>
     </section>
 
-    <section class="cta">
-      <div class="w reveal">
+    <section class='cta'>
+      <div class='w reveal'>
         <h2>Need something built? Let's make it real.</h2>
-        <a href="mailto:nuvairea@gmail.com">Hit me up →</a>
+        <a href='mailto:nuvairea@gmail.com'>Hit me up →</a>
       </div>
     </section>
   </main>
@@ -98,6 +90,11 @@ import projects from '../data/projects';
     background: var(--acc);
     border-color: var(--acc);
     color: var(--on);
+    transition: background 0.15s;
+    &:hover {
+      background: var(--hover);
+      border-color: var(--hover);
+    }
   }
 
   .sec {
