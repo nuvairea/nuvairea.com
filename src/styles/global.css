@@ -5,6 +5,7 @@
   --mute: #a09b8d;
   --line: #2b2f27;
   --acc: #c6f432;
+  --hover: #dcf58a;
   --on: #0f1a13;
   padding-top: env(safe-area-inset-top, 0px);
   padding-bottom: env(safe-area-inset-bottom, 0px);
