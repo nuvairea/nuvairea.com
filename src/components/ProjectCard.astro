@@ -1,19 +1,22 @@
 ---
+import { Image } from 'astro:assets';
 import type { Project } from '../data/projects';
+import Icon from './Icon.astro';
 
 interface Props {
   project: Project;
 }
 
 const { project } = Astro.props;
-const primaryLink = project.links[0];
+const { details } = project;
+const moreId = `more-${project.slug}`;
 ---
 
 <div class='eye'>Featured project</div>
 <div class='lab'>{project.tagline}</div>
 <div class='title'>
   <h3>{project.name}</h3>
-  <a href={primaryLink.href} aria-label={`Open ${project.name}`}>→</a>
+  <a href={project.liveUrl} aria-label={`Open ${project.name}`}>→</a>
 </div>
 <div class='pills'>
   {project.pills.map((pill) => <span class:list={['pill', { live: pill.live }]}>{pill.label}</span>)}
@@ -22,9 +25,87 @@ const primaryLink = project.links[0];
 <div class='stack'>
   {project.stack.map((item) => <span>{item}</span>)}
 </div>
-<div class='ul'>
-  {project.links.map((link) => <a href={link.href}>{link.label}</a>)}
+
+<div class='actions'>
+  <a class='pbtn f' href={project.liveUrl} target='_blank' rel='noopener noreferrer'>
+    <Icon name='external' size={18} />
+    <span class='lbl'>Visit {project.name}</span>
+  </a>
+  <a class='pbtn' href={project.codeUrl} target='_blank' rel='noopener noreferrer'>
+    <Icon name='github' size={18} />
+    <span class='lbl'>View code</span>
+  </a>
+  <button class='pbtn' type='button' data-more aria-expanded='false' aria-controls={moreId}>
+    <Icon name='info' size={18} />
+    <span class='lbl'>More info</span>
+  </button>
 </div>
+
+<div class='more' id={moreId} hidden>
+  <div class='shot'>
+    <Image
+      src={details.screenshot.src}
+      alt={details.screenshot.alt}
+      widths={[800, 1200, 2000]}
+      sizes='(min-width: 1040px) 992px, 100vw'
+    />
+  </div>
+
+  <dl class='facts'>
+    {
+      details.facts.map((fact) => (
+        <div class='fact'>
+          <dt>{fact.label}</dt>
+          <dd>{fact.value}</dd>
+        </div>
+      ))
+    }
+  </dl>
+
+  <div class='eye'>What it does</div>
+  <h4>Built to stay out of your way</h4>
+  <ul class='features'>
+    {
+      details.features.map((feature) => (
+        <li class='feature'>
+          <Icon name={feature.icon} size={24} />
+          <p class='ft'>{feature.title}</p>
+          <p class='fd'>{feature.text}</p>
+        </li>
+      ))
+    }
+  </ul>
+
+  <div class='eye'>How sync works</div>
+  <h4>{details.sync.title}</h4>
+  <div class='sync'>
+    <p class='lead'>{details.sync.text}</p>
+    <ul class='shots'>
+      {
+        details.sync.shots.map((shot) => (
+          <li>
+            <figure>
+              <Image src={shot.src} alt={shot.alt} widths={[240, 480]} sizes='(min-width: 900px) 200px, 30vw' />
+              <figcaption>{shot.label}</figcaption>
+            </figure>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-more]').forEach((btn) => {
+    const panel = document.getElementById(btn.getAttribute('aria-controls') ?? '');
+    if (!panel) return;
+    btn.addEventListener('click', () => {
+      const open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!open));
+      panel.hidden = open;
+    });
+  });
+</script>
 
 <style>
   .lab {
@@ -98,23 +179,220 @@ const primaryLink = project.links[0];
     color: var(--mute);
   }
 
-  .ul {
+  .actions {
     display: flex;
-    flex-wrap: wrap;
-    gap: 12px 32px;
+    gap: 12px;
+    max-width: 560px;
   }
 
-  .ul a {
+  .pbtn {
+    flex: 1 1 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 13px 18px;
+    font: inherit;
+    font-size: 16px;
     font-weight: 600;
-    font-size: 17px;
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 6px;
-    text-decoration-color: var(--acc);
-    transition: color 0.15s;
+    line-height: 1.65;
+    white-space: nowrap;
+    color: var(--ink);
+    text-decoration: none;
+    background: transparent;
+    border: 1px solid var(--line);
+    cursor: pointer;
+    transition:
+      border-color 0.15s,
+      background 0.15s,
+      color 0.15s;
 
     &:hover {
-      color: var(--mute);
+      border-color: var(--ink);
+    }
+  }
+
+  .pbtn.f {
+    background: var(--acc);
+    border-color: var(--acc);
+    color: var(--on);
+
+    &:hover {
+      background: var(--hover);
+      border-color: var(--hover);
+    }
+  }
+
+  .pbtn[aria-expanded='true'] {
+    border-color: var(--acc);
+    color: var(--acc);
+  }
+
+  .more {
+    margin-top: 56px;
+    padding-top: 48px;
+    border-top: 1px solid var(--line);
+    animation: open 0.4s ease;
+  }
+
+  .more[hidden] {
+    display: none;
+  }
+
+  @keyframes open {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .more {
+      animation: none;
+    }
+  }
+
+  .shot {
+    margin: 0 0 40px;
+  }
+
+  .shot :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+  }
+
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin: 0 0 64px;
+    border: 1px solid var(--line);
+  }
+
+  .fact {
+    padding: 18px 22px;
+  }
+
+  .fact + .fact {
+    border-left: 1px solid var(--line);
+  }
+
+  dt {
+    margin: 0 0 8px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--acc);
+  }
+
+  dd {
+    margin: 0;
+    font-size: 17px;
+    color: var(--ink);
+  }
+
+  h4 {
+    margin: 12px 0 28px;
+    font-size: clamp(26px, 4vw, 38px);
+    font-weight: 400;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+  }
+
+  .features {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+    margin: 0 0 64px;
+    padding: 0;
+    list-style: none;
+  }
+
+  .feature {
+    padding: 20px;
+    border: 1px solid var(--line);
+  }
+
+  .feature :global(.icon) {
+    margin-bottom: 14px;
+    color: var(--acc);
+  }
+
+  .ft {
+    margin: 0 0 6px;
+    font-size: 17px;
+    font-weight: 600;
+  }
+
+  .fd {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--mute);
+  }
+
+  .sync {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+    gap: 56px;
+    align-items: start;
+  }
+
+  .sync .lead {
+    max-width: 440px;
+    margin: 0;
+  }
+
+  .shots {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  figure {
+    margin: 0;
+  }
+
+  figure :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+  }
+
+  figcaption {
+    margin-top: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--mute);
+  }
+
+  .shots li:last-child figcaption {
+    color: var(--acc);
+  }
+
+  @media (max-width: 900px) {
+    .features {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .sync {
+      grid-template-columns: 1fr;
+      gap: 32px;
     }
   }
 
@@ -157,12 +435,80 @@ const primaryLink = project.links[0];
       padding: 4px 10px;
     }
 
-    .ul {
-      gap: 10px 24px;
+    .pbtn {
+      font-size: 15px;
+      padding: 11px 14px;
     }
 
-    .ul a {
+    .more {
+      margin-top: 40px;
+      padding-top: 36px;
+    }
+
+    .shot {
+      margin-bottom: 28px;
+    }
+
+    .facts {
+      grid-template-columns: 1fr;
+      margin-bottom: 44px;
+    }
+
+    .fact {
+      padding: 14px 16px;
+    }
+
+    .fact + .fact {
+      border-left: 0;
+      border-top: 1px solid var(--line);
+    }
+
+    dt {
+      font-size: 12px;
+    }
+
+    dd {
       font-size: 15px;
+    }
+
+    h4 {
+      margin-bottom: 20px;
+    }
+
+    .features {
+      margin-bottom: 44px;
+    }
+
+    .feature {
+      padding: 14px;
+    }
+
+    .ft {
+      font-size: 15px;
+    }
+
+    .fd {
+      font-size: 13px;
+    }
+
+    .sync .lead {
+      font-size: 16px;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .pbtn:not(.f) {
+      flex: 0 0 52px;
+      padding-inline: 0;
+    }
+
+    .pbtn:not(.f) .lbl {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
     }
   }
 </style>
