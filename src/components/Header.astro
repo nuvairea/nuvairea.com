@@ -1,24 +1,24 @@
 <header>
-  <div class="w hd">
-    <a class="logo" href="#top">Paul Oluwadamilare</a>
-    <div class="right">
-      <nav class="links" id="links" aria-label="Main">
-        <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#connect">Connect</a>
+  <div class='w hd'>
+    <a class='logo' href='#top'>Paul Oluwadamilare</a>
+    <div class='right'>
+      <nav class='links' id='links' aria-label='Main'>
+        <a href='#about'>About</a>
+        <a href='#projects'>Projects</a>
+        <a href='#connect'>Connect</a>
       </nav>
-      <span class="sep" aria-hidden="true"></span>
-      <a class="gh" href="https://github.com/nuvairea" aria-label="GitHub profile">
-        <svg aria-hidden="true" viewBox="0 0 16 16">
-          <use href="/icons/github.svg#icon"></use>
+      <span class='sep' aria-hidden='true'></span>
+      <a class='gh' href='https://github.com/nuvairea' aria-label='GitHub profile'>
+        <svg aria-hidden='true' viewBox='0 0 16 16'>
+          <use href='/icons/github.svg#icon'></use>
         </svg>
       </a>
-      <button class="menu" id="menu" aria-label="Open menu" aria-expanded="false" aria-controls="links">
+      <button class='menu' id='menu' aria-label='Open menu' aria-expanded='false' aria-controls='links'>
         <span></span><span></span><span></span>
       </button>
     </div>
   </div>
-  <div class="backdrop" id="backdrop"></div>
+  <div class='backdrop' id='backdrop'></div>
 </header>
 
 <script>
@@ -191,6 +191,7 @@
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.3s;
+      will-change: opacity;
     }
 
     .backdrop.open {
