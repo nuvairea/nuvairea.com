@@ -35,7 +35,9 @@ const { project } = Astro.props;
     <span class='lbl'>Visit {project.name}</span>
   </a>
   <a class='pbtn' href={project.codeUrl} target='_blank' rel='noopener noreferrer'>
-    <img src='/icons/github.svg' alt='' width='18' height='18' />
+    <svg aria-hidden='true' viewBox='0 0 16 16' width='18' height='18' fill='currentColor'>
+      <use href='/icons/github.svg#icon' />
+    </svg>
     <span class='lbl'>View code</span>
   </a>
 </div>
