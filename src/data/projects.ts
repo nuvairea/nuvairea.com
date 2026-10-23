@@ -11,7 +11,6 @@ export interface Shot {
 export interface Project {
   slug: string;
   name: string;
-  pills: { label: string; live?: boolean }[];
   screenshot: Shot;
   description: string;
   stack: string[];
@@ -23,7 +22,6 @@ const projects: Project[] = [
   {
     slug: 'scribbly',
     name: 'Scribbly',
-    pills: [{ label: 'Live', live: true }, { label: 'Free' }],
     screenshot: {
       src: scribblyMain,
       alt: 'Scribbly notes screen with colored note cards, search and filters',
