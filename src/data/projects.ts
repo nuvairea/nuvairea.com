@@ -1,5 +1,5 @@
 import type { ImageMetadata } from 'astro';
-import scribblyMain from '../assets/main.png';
+import scribblyMain from '../assets/scribbly.png';
 
 export type IconName = 'external' | 'github';
 
