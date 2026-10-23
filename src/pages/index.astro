@@ -36,9 +36,18 @@ import projects from '../data/projects';
       <div class='w reveal'>
         <div class='eye'>Connect</div>
         <h2 class='connect-heading'>Find me <b>online.</b></h2>
-        <p class='sub lead'>Code, projects and the occasional update. Say hi on either.</p>
-        <ConnectRow icon='github' label='GitHub' value='@nuvairea' href='https://github.com/nuvairea' />
-        <ConnectRow icon='email' label='Email' value='nuvairea@gmail.com' href='mailto:nuvairea@gmail.com' />
+        <p class='sub lead'>Code, projects and the occasional update. Find me across the web.</p>
+        <div class='connect-grid'>
+          <ConnectRow icon='github' label='GitHub' value='@nuvairea' href='https://github.com/nuvairea' />
+          <ConnectRow
+            icon='discord'
+            label='Discord'
+            value='@nuvairea'
+            href='https://discord.com/users/1417096520922169466'
+          />
+          <ConnectRow icon='instagram' label='Instagram' value='@nuvairea' href='https://instagram.com/nuvairea' />
+          <ConnectRow icon='x' label='X' value='@nuvairea' href='https://x.com/nuvairea' />
+        </div>
       </div>
     </section>
 
@@ -114,6 +123,15 @@ import projects from '../data/projects';
     margin: 28px 0 48px;
   }
 
+  .connect-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .connect-grid :global(.row:nth-last-child(-n + 2)) {
+    border-bottom: 1px solid var(--line);
+  }
+
   .cta {
     background: var(--acc);
     color: var(--bg);
@@ -146,6 +164,14 @@ import projects from '../data/projects';
     .conn p.sub {
       font-size: 17px;
       margin: 20px 0 32px;
+    }
+
+    .connect-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .connect-grid :global(.row:nth-last-child(2)) {
+      border-bottom: 0;
     }
 
     .cta {
