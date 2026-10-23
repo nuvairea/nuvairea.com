@@ -42,7 +42,7 @@ const { project } = Astro.props;
 
 <style>
   .name {
-    font-size: clamp(40px, 7vw, 68px);
+    font-size: 34px;
     font-weight: 400;
     letter-spacing: -0.045em;
     margin: 0 0 24px;
@@ -53,16 +53,12 @@ const { project } = Astro.props;
     margin: 0 0 32px;
   }
 
-  .name {
-    margin-top: 22px;
-  }
-
   .shot :global(img) {
     display: block;
     width: 100%;
     height: auto;
+    margin-inline: auto;
     border: 1px solid var(--line);
-    border-radius: 6px;
   }
 
   .desc {
