@@ -10,10 +10,8 @@ interface Props {
 const { project } = Astro.props;
 ---
 
+<div class='eye'>Featured project</div>
 <h3 class='name'>{project.name}</h3>
-<div class='pills'>
-  {project.pills.map((pill) => <span class:list={['pill', { live: pill.live }]}>{pill.label}</span>)}
-</div>
 
 <div class='shot'>
   <Image
@@ -47,30 +45,8 @@ const { project } = Astro.props;
     font-size: clamp(40px, 7vw, 68px);
     font-weight: 400;
     letter-spacing: -0.045em;
-    margin: 0;
+    margin: 0 0 24px;
     line-height: 1.05;
-  }
-
-  .pills {
-    display: flex;
-    gap: 10px;
-    margin: 18px 0 28px;
-  }
-
-  .pill {
-    border: 1px solid var(--line);
-    padding: 6px 20px;
-    border-radius: 999px;
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    background: var(--bg2);
-  }
-
-  .pill.live {
-    color: var(--acc);
-    border-color: var(--acc);
   }
 
   .shot {
@@ -82,6 +58,7 @@ const { project } = Astro.props;
     width: 100%;
     height: auto;
     border: 1px solid var(--line);
+    border-radius: 6px;
   }
 
   .desc {
@@ -152,16 +129,6 @@ const { project } = Astro.props;
   @media (max-width: 640px) {
     .name {
       font-size: 36px;
-    }
-
-    .pills {
-      gap: 8px;
-      margin: 14px 0 20px;
-    }
-
-    .pill {
-      font-size: 12px;
-      padding: 4px 10px;
     }
 
     .shot {
