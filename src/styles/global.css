@@ -33,6 +33,7 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--ink);
+  padding-top: 76px;
   font:
     400 17px/1.65 Manrope,
     system-ui,
