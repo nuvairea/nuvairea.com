@@ -27,7 +27,7 @@ const projects: Project[] = [
       alt: 'Scribbly notes screen with colored note cards, search and filters',
     },
     description:
-      "Offline-first notes app with a playful, premium feel. Notes save instantly on your device and sync in the background when you're signed in, retrying automatically if the connection drops.",
+      "A full-stack notes app with offline support, Google sign-in, and PWA install. Notes save on your device first and sync in the background, retrying automatically if the connection drops.",
     stack: ['React', 'TypeScript', 'Node.js', 'Express', 'MongoDB'],
     liveUrl: 'https://scribbly-app.onrender.com',
     codeUrl: 'https://github.com/nuvairea/scribbly',
