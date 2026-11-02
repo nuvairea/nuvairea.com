@@ -2,6 +2,9 @@
 import '../styles/global.css';
 
 const canonical = new URL(Astro.url.pathname, Astro.site);
+const title = 'Paul Oluwadamilare | Full-Stack Developer';
+const description = 'Paul Oluwadamilare is a full-stack developer building practical web apps, clean interfaces, and the backends behind them.';
+const ogImage = new URL('/og.png', Astro.site);
 ---
 
 <!doctype html>
@@ -11,13 +14,19 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta name='viewport' content='width=device-width, initial-scale=1, viewport-fit=cover' />
     <meta
       name='description'
-      content='Paul Oluwadamilare is a full-stack developer building practical web apps, clean interfaces, and the backends behind them.'
+      content={description}
     />
+    <meta property='og:type' content='website' />
+    <meta property='og:title' content={title} />
+    <meta property='og:description' content={description} />
+    <meta property='og:url' content={canonical} />
+    <meta property='og:image' content={ogImage} />
+    <meta name='twitter:card' content='summary_large_image' />
     <link rel='canonical' href={canonical} />
-    <meta name="theme-color" content="#0b0d0c" />
+    <meta name='theme-color' content='#0b0d0c' />
     <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
     <link rel='icon' href='/favicon.ico' />
-    <title>"Paul Oluwadamilare | Full-Stack Developer</title>
+    <title>{title}</title>
     <script is:inline>
       document.documentElement.classList.add('js');
     </script>
