@@ -93,6 +93,7 @@ h2 b {
   .js .reveal {
     opacity: 0;
     transform: translateY(18px);
+    filter: blur(10px);
     transition:
       opacity 0.7s ease,
       transform 0.7s ease;
@@ -100,6 +101,7 @@ h2 b {
 
   .js .reveal.in {
     opacity: 1;
+    filter: blur(0);
     transform: none;
   }
 }
