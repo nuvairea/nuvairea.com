@@ -93,10 +93,11 @@ h2 b {
   .js .reveal {
     opacity: 0;
     transform: translateY(18px);
-    filter: blur(10px);
+    filter: blur(4px);
     transition:
       opacity 0.7s ease,
-      transform 0.7s ease;
+      transform 0.7s ease,
+      filter 0.7s ease;
   }
 
   .js .reveal.in {
@@ -117,5 +118,6 @@ h2 b {
   from {
     opacity: 0;
     transform: translateY(var(--rise-y, 14px));
+    filter: blur(4px);
   }
 }
