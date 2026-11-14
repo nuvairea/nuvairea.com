@@ -1,6 +1,7 @@
 :root {
   --bg: #0b0d0c;
   --bg2: #181b16;
+  --bg3: #131815;
   --ink: #f1eee6;
   --mute: #a09b8d;
   --line: #2b2f27;
@@ -15,6 +16,7 @@ html {
   scroll-padding-top: env(safe-area-inset-top, 0px);
   scroll-behavior: smooth;
   scrollbar-width: thin;
+  scrollbar-color: var(--acc);
 }
 
 * {
