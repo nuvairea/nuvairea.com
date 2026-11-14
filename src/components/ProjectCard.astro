@@ -9,61 +9,91 @@ interface Props {
 const { project } = Astro.props;
 ---
 
-<div class='eye'>Featured project</div>
-<h2 class='name'>{project.name}</h2>
+<article class='card'>
+  <div class='shot'>
+    <Image
+      src={project.screenshot.src}
+      alt={project.screenshot.alt}
+      widths={[480, 800, 1200]}
+      sizes='(min-width: 901px) 496px, 100vw'
+    />
+  </div>
 
-<div class='shot'>
-  <Image
-    src={project.screenshot.src}
-    alt={project.screenshot.alt}
-    widths={[800, 1200, 2000]}
-    sizes='(min-width: 1040px) 992px, 100vw'
-  />
-</div>
+  <h3 class='name'>{project.name}</h3>
 
-<p class='desc lead'>{project.description}</p>
-<div class='stack'>
-  {project.stack.map((item) => <span>{item}</span>)}
-</div>
+  <p class='desc lead'>{project.description}</p>
+  <div class='stack'>
+    {project.stack.map((item) => <span>{item}</span>)}
+  </div>
 
-<div class='actions'>
-  <a class='pbtn f' href={project.liveUrl} target='_blank' rel='noopener noreferrer'>
-    <svg aria-hidden='true' viewBox='0 0 24 24' width='18' height='18' fill='currentColor'>
-      <use href='/icons/external.svg#icon'></use>
-    </svg>
-    <span class='lbl'>Visit {project.name}</span>
-  </a>
-  <a class='pbtn' href={project.codeUrl} target='_blank' rel='noopener noreferrer'>
-    <svg aria-hidden='true' viewBox='0 0 16 16' width='18' height='18' fill='currentColor'>
-      <use href='/icons/github.svg#icon'></use>
-    </svg>
-    <span class='lbl'>View code</span>
-  </a>
-</div>
+  <div class='actions'>
+    <a class='pbtn f' href={project.liveUrl} target='_blank' rel='noopener noreferrer'>
+      <svg aria-hidden='true' viewBox='0 0 24 24' width='18' height='18' fill='currentColor'>
+        <use href='/icons/external.svg#icon'></use>
+      </svg>
+      <span class='lbl'>Visit {project.name}</span>
+    </a>
+    <a class='pbtn' href={project.caseStudyUrl} title='Case study'>
+      <svg aria-hidden='true' viewBox='0 0 24 24' width='18' height='18' fill='currentColor'>
+        <use href='/icons/case-study.svg#icon'></use>
+      </svg>
+      <span class='lbl'>Case study</span>
+    </a>
+    <a class='pbtn' href={project.codeUrl} target='_blank' rel='noopener noreferrer' title='View code'>
+      <svg aria-hidden='true' viewBox='0 0 16 16' width='18' height='18' fill='currentColor'>
+        <use href='/icons/github.svg#icon'></use>
+      </svg>
+      <span class='lbl'>View code</span>
+    </a>
+  </div>
+</article>
 
 <style>
+  .card {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    container-type: inline-size;
+  }
+
   .name {
+    font-size: 30px;
+    font-weight: 500;
     letter-spacing: -0.045em;
-    margin: 22px 0 24px;
     line-height: 1.05;
+    margin: 0 0 22px;
   }
 
   .shot {
-    margin: 0 0 32px;
+    position: relative;
+    z-index: 1;
+    background: var(--acc);
+    margin: 0 0 28px;
     width: 100%;
+    aspect-ratio: 1.68;
     overflow: hidden;
+    border: 1px solid rgb(255 255 255 / 14%);
+    transition: border-color 0.15s;
+
+    &:hover {
+      border-color: rgb(255 255 255 / 25%);
+    }
   }
 
   .shot :global(img) {
     display: block;
     width: 100%;
-    height: auto;
-    margin-inline: auto;
-    border: 1px solid var(--line);
-    transition: transform 0.3s ease;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+     filter: grayscale(1);
+    mix-blend-mode: multiply;
+    transition: transform 0.3s ease, filter 0.3s ease;
   }
 
   .shot:hover :global(img) {
+    filter: none;
+    mix-blend-mode: normal;
     transform: scale(1.03);
   }
 
@@ -74,22 +104,23 @@ const { project } = Astro.props;
   }
 
   .desc {
+    flex: 1;
     max-width: 640px;
-    margin: 0 0 26px;
+    margin: 0 0 24px;
   }
 
   .stack {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
-    margin: 0 0 30px;
+    gap: 8px;
+    margin: 0 0 28px;
   }
 
   .stack span {
     border: 1px solid var(--line);
-    padding: 9px 16px;
-    font-size: 14px;
-    letter-spacing: 0.12em;
+    padding: 7px 12px;
+    font-size: 13px;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--mute);
   }
@@ -97,7 +128,6 @@ const { project } = Astro.props;
   .actions {
     display: flex;
     gap: 12px;
-    max-width: 560px;
   }
 
   .pbtn {
@@ -106,7 +136,7 @@ const { project } = Astro.props;
     align-items: center;
     justify-content: center;
     gap: 10px;
-    padding: 13px 18px;
+    padding: 10px 14px;
     font: inherit;
     font-size: 16px;
     font-weight: 600;
@@ -128,6 +158,7 @@ const { project } = Astro.props;
   }
 
   .pbtn.f {
+    flex: 1.4 1 auto;
     background: var(--acc);
     border-color: var(--acc);
     color: var(--on);
@@ -138,37 +169,8 @@ const { project } = Astro.props;
     }
   }
 
-  @media (max-width: 640px) {
-    .name {
-      font-size: 36px;
-    }
-
-    .shot {
-      margin-bottom: 24px;
-    }
-
-    .desc {
-      font-size: 16px;
-      margin: 0 0 20px;
-    }
-
-    .stack {
-      gap: 8px;
-      margin: 0 0 22px;
-    }
-
-    .stack span {
-      font-size: 12px;
-      padding: 4px 10px;
-    }
-
-    .pbtn {
-      font-size: 15px;
-      padding: 11px 14px;
-    }
-  }
-
-  @media (max-width: 520px) {
+  /* secondary buttons collapse to icon-only based on the card's width, not the viewport's */
+  @container (max-width: 520px) {
     .pbtn:not(.f) {
       flex: 0 0 52px;
       padding-inline: 0;
@@ -181,6 +183,61 @@ const { project } = Astro.props;
       overflow: hidden;
       clip-path: inset(50%);
       white-space: nowrap;
+    }
+  }
+
+  @media (min-width: 641px) {
+    .pbtn:not(.f) {
+      flex: 1 1 auto;
+      padding-inline: 18px;
+    }
+
+    .pbtn:not(.f) .lbl {
+      position: static;
+      width: auto;
+      height: auto;
+      overflow: visible;
+      clip-path: none;
+      white-space: nowrap;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .name {
+      font-size: 26px;
+    }
+
+    .shot {
+      margin-bottom: 24px;
+    }
+
+    .desc {
+      font-size: 16px;
+      margin: 0 0 20px;
+    }
+
+    .stack {
+      flex-wrap: nowrap;
+      gap: 6px;
+      margin: 0 0 22px;
+    }
+
+    .stack span {
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      padding: 6px 9px;
+    }
+
+    .pbtn {
+      font-size: 15px;
+      padding: 11px 14px;
+    }
+  }
+
+  /* very narrow cards: let the pills wrap instead of overflowing */
+  @container (max-width: 340px) {
+    .stack {
+      flex-wrap: wrap;
     }
   }
 </style>
