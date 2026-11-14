@@ -26,7 +26,11 @@ import projects from '../data/projects';
 
     <section class='sec' id='projects'>
       <div class='w reveal'>
-        {projects.map((project) => <ProjectCard project={project} />)}
+        <div class='eye'>Projects</div>
+        <h2 class='projects-heading'>Featured <b>work.</b></h2>
+        <div class='project-grid'>
+          {projects.map((project) => <ProjectCard project={project} />)}
+        </div>
       </div>
     </section>
 
@@ -108,8 +112,19 @@ import projects from '../data/projects';
     background: var(--bg2);
   }
 
-  .connect-heading {
+  .connect-heading,
+  .projects-heading {
     margin-top: 22px;
+  }
+
+  .projects-heading {
+    margin-bottom: 48px;
+  }
+
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 48px;
   }
 
   .conn p.sub {
@@ -145,6 +160,13 @@ import projects from '../data/projects';
     padding-bottom: 12px;
   }
 
+  @media (max-width: 900px) {
+    .project-grid {
+      grid-template-columns: 1fr;
+      gap: 64px;
+    }
+  }
+
   @media (max-width: 640px) {
     .sec {
       padding: 56px 0;
@@ -152,6 +174,11 @@ import projects from '../data/projects';
 
     .hero p {
       font-size: 17px;
+    }
+
+    .projects-heading {
+      margin-top: 20px;
+      margin-bottom: 32px;
     }
 
     .conn p.sub {
