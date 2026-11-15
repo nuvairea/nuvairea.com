@@ -74,6 +74,7 @@ const { project } = Astro.props;
 
   .photo:hover .shot {
     transform: translate(-4px, -4px);
+    background-color: #fff;
   }
 
   .photo:hover::after {
@@ -97,7 +98,9 @@ const { project } = Astro.props;
     aspect-ratio: 1.68;
     overflow: hidden;
     isolation: isolate;
-    transition: transform 0.3s ease;
+    transition:
+      transform 0.3s ease,
+      background-color 0.3s ease;
   }
 
   .shot :global(img) {
@@ -108,12 +111,11 @@ const { project } = Astro.props;
     object-position: top;
     filter: grayscale(1) contrast(1.08);
     mix-blend-mode: multiply;
-    transition: transform 0.3s ease, filter 0.3s ease;
+    transition: filter 0.3s ease;
   }
 
   .photo:hover .shot :global(img) {
     filter: none;
-    mix-blend-mode: normal;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -157,7 +159,7 @@ const { project } = Astro.props;
     align-items: center;
     justify-content: center;
     gap: 10px;
-    padding: 10px 14px;
+    padding: 13px 18px;
     font: inherit;
     font-size: 16px;
     font-weight: 600;
@@ -240,10 +242,6 @@ const { project } = Astro.props;
 
     .photo:hover::after {
       transform: translate(22px, 22px);
-    }
-
-    .shot {
-      aspect-ratio: 1.5;
     }
 
     .shot :global(img) {
