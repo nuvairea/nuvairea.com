@@ -1,0 +1,592 @@
+---
+import { Image } from 'astro:assets';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import Layout from '../../layouts/Layout.astro';
+import caseStudies from '../../data/case-studies';
+import projects from '../../data/projects';
+
+export function getStaticPaths() {
+  return projects
+    .filter((project) => caseStudies[project.slug])
+    .map((project) => ({
+      params: { slug: project.slug },
+      props: { project, study: caseStudies[project.slug] },
+    }));
+}
+
+const { project, study } = Astro.props;
+---
+
+<Layout title={`${project.name} | Paul Oluwadamilare`} description={project.description}>
+  <Header />
+  <main id='top'>
+    <section class='top'>
+      <div class='w'>
+        <a class='back' href='/#projects'>← All projects</a>
+
+        <div class='hero'>
+          <div>
+            <div class='eye rise' style='--i: 1'>Case study</div>
+            <h1 class='rise' style='--i: 2'>{project.name}<b>.</b></h1>
+          </div>
+          <div class='rise' style='--i: 3'>
+            <p class='lead'>{project.description}</p>
+            <div class='actions'>
+              <a class='btn f' href={project.liveUrl} target='_blank' rel='noopener noreferrer'>
+                <svg aria-hidden='true' viewBox='0 0 24 24' width='18' height='18' fill='currentColor'>
+                  <use href='/icons/external.svg#icon'></use>
+                </svg>
+                Visit {project.name}
+              </a>
+              <a class='btn' href={project.codeUrl} target='_blank' rel='noopener noreferrer'>View code</a>
+            </div>
+          </div>
+        </div>
+
+        <div class='hero-shot rise' style='--i: 4'>
+          <Image
+            src={project.screenshot.src}
+            alt={project.screenshot.alt}
+            widths={[640, 1040, 1600]}
+            sizes='(min-width: 1040px) 992px, calc(100vw - 48px)'
+            loading='eager'
+          />
+        </div>
+
+        <dl class='meta'>
+          <div>
+            <dt>Role</dt>
+            <dd>{study.role}</dd>
+          </div>
+          <div>
+            <dt>Product</dt>
+            <dd>{study.product}</dd>
+          </div>
+          <div>
+            <dt>Stack</dt>
+            <dd>{study.build.stack.join(', ')}</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <section class='block'>
+      <div class='w reveal'>
+        <div class='two'>
+          <div>
+            <div class='eye'>Why I built it</div>
+            <h2>{study.why.heading.text}<b>{study.why.heading.accent}</b></h2>
+          </div>
+          <div class='copy'>
+            {study.why.paragraphs.map((text) => <p class='lead'>{text}</p>)}
+          </div>
+        </div>
+
+        <ul class='features'>
+          {
+            study.why.features.map((feature) => (
+              <li>
+                <span class='icon'>
+                  <svg aria-hidden='true' viewBox='0 0 24 24' width='20' height='20'>
+                    <use href={`/icons/${feature.icon}.svg#icon`} />
+                  </svg>
+                </span>
+                <h3>{feature.title}</h3>
+                <p>{feature.body}</p>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+
+    <section class='block'>
+      <div class='w reveal'>
+        <div class='two'>
+          <div>
+            <div class='eye'>Inside {project.name}</div>
+            <h2>{study.inside.heading.text}<b>{study.inside.heading.accent}</b></h2>
+          </div>
+          <div class='copy'>
+            <p class='lead'>{study.inside.intro}</p>
+          </div>
+        </div>
+
+        <div class='shots'>
+          {
+            study.inside.shots.map((shot) => (
+              <figure>
+                <Image src={shot.src} alt={shot.alt} widths={[320, 480, 700]} sizes='(min-width: 900px) 320px, 68vw' />
+                <figcaption>
+                  <em>{shot.label}</em>
+                  {shot.caption}
+                </figcaption>
+              </figure>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class='block'>
+      <div class='w reveal'>
+        <div class='two'>
+          <div>
+            <div class='eye'>How it's built</div>
+            <h2>{study.build.heading.text}<b>{study.build.heading.accent}</b></h2>
+          </div>
+          <div class='copy'>
+            <p class='lead'>{study.build.intro}</p>
+          </div>
+        </div>
+
+        <div class='build'>
+          <div>
+            <div class='label'>Core stack</div>
+            <div class='stack'>
+              {study.build.stack.map((item) => <span>{item}</span>)}
+            </div>
+          </div>
+          <div>
+            <div class='label'>Sync flow</div>
+            <ol class='flow'>
+              {
+                study.build.flow.map((step, i) => (
+                  <li>
+                    <span class='num'>{String(i + 1).padStart(2, '0')}</span>
+                    <strong>{step.title}</strong>
+                    <p>{step.body}</p>
+                  </li>
+                ))
+              }
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class='block cta'>
+      <div class='w reveal'>
+        <div class='eye'>Try it</div>
+        <h2>{study.cta.text}<b>{study.cta.accent}</b></h2>
+        <div class='actions'>
+          <a class='btn f' href={project.liveUrl} target='_blank' rel='noopener noreferrer'>
+            <svg aria-hidden='true' viewBox='0 0 24 24' width='18' height='18' fill='currentColor'>
+              <use href='/icons/external.svg#icon'></use>
+            </svg>
+            Visit {project.name}
+          </a>
+          <a class='btn' href={project.codeUrl} target='_blank' rel='noopener noreferrer'>View code</a>
+          <a class='btn' href='/#projects'>All projects</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .top {
+    padding: 36px 0 0;
+  }
+
+  .back {
+    display: inline-block;
+    margin-bottom: 48px;
+    font-size: 15px;
+    color: var(--mute);
+    text-decoration: none;
+    transition: color 0.15s;
+
+    &:hover {
+      color: var(--ink);
+    }
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 380px;
+    gap: 48px;
+    align-items: end;
+  }
+
+  .hero h1 {
+    margin: 22px 0 0;
+    font-size: clamp(56px, 11vw, 104px);
+  }
+
+  .lead {
+    margin: 0;
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 24px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 13px 18px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.65;
+    color: var(--ink);
+    text-decoration: none;
+    border: 1px solid var(--line);
+    transition:
+      border-color 0.15s,
+      background 0.15s;
+
+    &:hover {
+      border-color: var(--ink);
+    }
+  }
+
+  .btn.f {
+    background: var(--acc);
+    border-color: var(--acc);
+    color: var(--on);
+
+    &:hover {
+      background: var(--hover);
+      border-color: var(--hover);
+    }
+  }
+
+  .hero-shot {
+    margin-top: 56px;
+    aspect-ratio: 1.68;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+  }
+
+  .hero-shot :global(img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  .meta {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin: 0;
+    border: 1px solid var(--line);
+    border-top: 0;
+  }
+
+  .meta div {
+    padding: 20px 24px;
+    border-left: 1px solid var(--line);
+  }
+
+  .meta div:first-child {
+    border-left: 0;
+  }
+
+  .meta dt {
+    margin-bottom: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--acc);
+  }
+
+  .meta dd {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  .block {
+    padding: 96px 0 0;
+  }
+
+  .cta {
+    padding-bottom: 112px;
+  }
+
+  .two {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 72px;
+    align-items: start;
+  }
+
+  .block h2 {
+    margin-top: 22px;
+  }
+
+  .copy {
+    display: grid;
+    gap: 18px;
+  }
+
+  .features {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin: 64px 0 0;
+    padding: 0;
+    list-style: none;
+    border: 1px solid var(--line);
+  }
+
+  .features li {
+    padding: 28px 24px;
+    border-left: 1px solid var(--line);
+  }
+
+  .features li:first-child {
+    border-left: 0;
+  }
+
+  .icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    margin-bottom: 20px;
+    border: 1px solid var(--line);
+    color: var(--acc);
+  }
+
+  .features h3 {
+    margin: 0 0 10px;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  .features p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--mute);
+  }
+
+  .shots {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+    margin-top: 56px;
+  }
+
+  .shots figure {
+    margin: 0;
+  }
+
+  .shots :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+  }
+
+  .shots figcaption {
+    margin-top: 12px;
+    font-size: 14px;
+    color: var(--mute);
+  }
+
+  .shots em {
+    margin-right: 12px;
+    font-style: normal;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .build {
+    display: grid;
+    grid-template-columns: 300px minmax(0, 1fr);
+    gap: 72px;
+    margin-top: 64px;
+    align-items: start;
+  }
+
+  .label {
+    margin-bottom: 20px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--mute);
+  }
+
+  .stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .stack span {
+    border: 1px solid var(--line);
+    padding: 7px 12px;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--mute);
+  }
+
+  .flow {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .flow li {
+    display: grid;
+    grid-template-columns: 40px 180px minmax(0, 1fr);
+    gap: 16px;
+    align-items: baseline;
+    padding: 22px 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .flow li:last-child {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .num {
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    color: var(--acc);
+  }
+
+  .flow strong {
+    font-size: 17px;
+    font-weight: 600;
+  }
+
+  .flow p {
+    margin: 0;
+    font-size: 15px;
+    color: var(--mute);
+  }
+
+  .cta h2 {
+    max-width: 760px;
+    font-size: clamp(40px, 8vw, 72px);
+  }
+
+  .cta .actions {
+    margin-top: 32px;
+  }
+
+  @media (max-width: 900px) {
+    .hero,
+    .two,
+    .build {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+
+    .features {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .features li:nth-child(odd) {
+      border-left: 0;
+    }
+
+    .features li:nth-child(n + 3) {
+      border-top: 1px solid var(--line);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .top {
+      padding-top: 24px;
+    }
+
+    .back {
+      margin-bottom: 32px;
+    }
+
+    .hero-shot {
+      margin-top: 36px;
+    }
+
+    .meta {
+      grid-template-columns: 1fr;
+      border: 0;
+    }
+
+    .meta div {
+      padding: 16px 0;
+      border-left: 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .block {
+      padding-top: 72px;
+    }
+
+    .cta {
+      padding-bottom: 80px;
+    }
+
+    .features {
+      grid-template-columns: 1fr;
+      margin-top: 36px;
+      border: 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .features li,
+    .features li:nth-child(n + 3) {
+      padding: 22px 0;
+      border-left: 0;
+      border-top: 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .shots {
+      display: flex;
+      gap: 12px;
+      margin: 32px -24px 0;
+      padding: 0 24px 4px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+    }
+
+    .shots figure {
+      flex: 0 0 68%;
+      scroll-snap-align: start;
+    }
+
+    .stack span {
+      padding: 6px 9px;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+    }
+
+    .flow li {
+      grid-template-columns: 30px minmax(0, 1fr);
+      gap: 6px 0;
+      padding: 18px 0;
+    }
+
+    .flow p {
+      grid-column: 2;
+      font-size: 14px;
+    }
+
+    .actions {
+      flex-direction: column;
+    }
+
+    .actions .btn {
+      width: 100%;
+    }
+  }
+</style>
