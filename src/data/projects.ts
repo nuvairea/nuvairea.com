@@ -47,6 +47,7 @@ const projects: Project[] = [
     stack: ['Next.js', 'TypeScript', 'Postgres', 'Tailwind'],
     liveUrl: 'https://hooktail.vercel.app',
     codeUrl: 'https://github.com/nuvairea/hooktail',
+    caseStudyUrl: '/projects/hooktail/',
   },
 ];
 
