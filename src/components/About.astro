@@ -80,6 +80,7 @@ import me from '../assets/me.png';
 
   .photo:hover .shot {
     transform: translate(-6px, -6px);
+    background-color: #fff;
   }
 
   .photo:hover::after {
@@ -93,7 +94,10 @@ import me from '../assets/me.png';
     aspect-ratio: 1 / 1;
     overflow: hidden;
     background: var(--acc);
-    transition: transform 0.3s ease;
+    isolation: isolate;
+    transition:
+      transform 0.3s ease,
+      background-color 0.3s ease;
   }
 
   .shot :global(img) {
@@ -110,7 +114,6 @@ import me from '../assets/me.png';
 
   .photo:hover .shot :global(img) {
     filter: none;
-    mix-blend-mode: normal;
   }
 
   @media (min-width: 900px) {
