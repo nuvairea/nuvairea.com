@@ -101,33 +101,42 @@ const { project, study } = Astro.props;
       </div>
     </section>
 
-    <section class='block'>
-      <div class='w reveal'>
-        <div class='two'>
-          <div>
-            <div class='eye'>Inside {project.name}</div>
-            <h2>{study.inside.heading.text}<b>{study.inside.heading.accent}</b></h2>
+    {
+      study.inside && (
+      <section class='block'>
+        <div class='w reveal'>
+          <div class='two'>
+            <div>
+              <div class='eye'>Inside {project.name}</div>
+              <h2>{study.inside.heading.text}<b>{study.inside.heading.accent}</b></h2>
+            </div>
+            <div class='copy'>
+              <p class='lead'>{study.inside.intro}</p>
+            </div>
           </div>
-          <div class='copy'>
-            <p class='lead'>{study.inside.intro}</p>
-          </div>
-        </div>
 
-        <div class='shots'>
-          {
-            study.inside.shots.map((shot) => (
-              <figure>
-                <Image src={shot.src} alt={shot.alt} widths={[320, 480, 700]} sizes='(min-width: 900px) 320px, 68vw' />
-                <figcaption>
-                  <em>{shot.label}</em>
-                  {shot.caption}
-                </figcaption>
-              </figure>
-            ))
-          }
+          <div class={`shots ${study.inside.layout}`}>
+            {
+              study.inside.shots.map((shot) => (
+                <figure>
+                  <Image
+                    src={shot.src}
+                    alt={shot.alt}
+                    widths={study.inside.layout === 'wide' ? [480, 800, 1200] : [320, 480, 700]}
+                    sizes={study.inside.layout === 'wide' ? '(min-width: 900px) 484px, 88vw' : '(min-width: 900px) 320px, 68vw'}
+                  />
+                  <figcaption>
+                    <em>{shot.label}</em>
+                    {shot.caption}
+                  </figcaption>
+                </figure>
+              ))
+            }
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+      )
+    }
 
     <section class='block'>
       <div class='w reveal'>
@@ -149,7 +158,7 @@ const { project, study } = Astro.props;
             </div>
           </div>
           <div>
-            <div class='label'>Sync flow</div>
+            <div class='label'>{study.build.flowLabel}</div>
             <ol class='flow'>
               {
                 study.build.flow.map((step, i) => (
@@ -380,6 +389,10 @@ const { project, study } = Astro.props;
     margin-top: 56px;
   }
 
+  .shots.wide {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .shots figure {
     margin: 0;
   }
@@ -562,6 +575,10 @@ const { project, study } = Astro.props;
     .shots figure {
       flex: 0 0 68%;
       scroll-snap-align: start;
+    }
+
+    .shots.wide figure {
+      flex-basis: 88%;
     }
 
     .stack span {
