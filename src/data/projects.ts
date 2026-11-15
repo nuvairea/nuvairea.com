@@ -33,6 +33,7 @@ const projects: Project[] = [
     stack: ['React', 'TypeScript', 'Node.js', 'MongoDB'],
     liveUrl: 'https://scribbly-app.onrender.com',
     codeUrl: 'https://github.com/nuvairea/scribbly',
+    caseStudyUrl: '/projects/scribbly/',
   },
   {
     slug: 'hooktail',
