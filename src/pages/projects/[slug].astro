@@ -122,8 +122,8 @@ const { project, study } = Astro.props;
                   <Image
                     src={shot.src}
                     alt={shot.alt}
-                    widths={study.inside.layout === 'wide' ? [480, 800, 1200] : [320, 480, 700]}
-                    sizes={study.inside.layout === 'wide' ? '(min-width: 900px) 484px, 88vw' : '(min-width: 900px) 320px, 68vw'}
+                    widths={study.inside?.layout === 'wide' ? [480, 800, 1200] : [320, 480, 700]}
+                    sizes={study.inside?.layout === 'wide' ? '(min-width: 900px) 484px, 88vw' : '(min-width: 900px) 320px, 68vw'}
                   />
                   <figcaption>
                     <em>{shot.label}</em>
