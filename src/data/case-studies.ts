@@ -86,7 +86,7 @@ const caseStudies: Record<string, CaseStudy> = {
       ],
     },
     inside: {
-      heading: { text: 'Offline. Syncing ', accent: 'Synced' },
+      heading: { text: 'Offline. Syncing. ', accent: 'Synced.' },
       intro: 'Color-tagged cards, search, and filters for today, this week and this month. Keyboard shortcuts on desktop.',
       layout: 'portrait',
       shots: [
