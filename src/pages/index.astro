@@ -1,11 +1,12 @@
 ---
 import About from '../components/About.astro';
+import AlsoBuilt from '../components/AlsoBuilt.astro';
 import ConnectRow from '../components/ConnectRow.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import Layout from '../layouts/Layout.astro';
-import projects from '../data/projects';
+import projects, { alsoBuilt } from '../data/projects';
 ---
 
 <Layout>
@@ -31,6 +32,7 @@ import projects from '../data/projects';
         <div class='project-grid'>
           {projects.map((project) => <ProjectCard project={project} />)}
         </div>
+        <AlsoBuilt item={alsoBuilt} />
       </div>
     </section>
 
