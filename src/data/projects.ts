@@ -1,6 +1,7 @@
 import type { ImageMetadata } from 'astro';
 import scribblyMain from '../assets/scribbly.png';
 import hooktailMain from '../assets/hooktail.png';
+import loomMain from '../assets/loom.png';
 
 export type IconName = 'external' | 'github';
 
@@ -50,5 +51,27 @@ const projects: Project[] = [
     caseStudyUrl: '/projects/hooktail/',
   },
 ];
+
+export interface AlsoBuilt {
+  name: string;
+  screenshot: Shot;
+  description: string;
+  stack: string[];
+  liveUrl: string;
+  codeUrl: string;
+}
+
+export const alsoBuilt: AlsoBuilt = {
+  name: 'Loom',
+  screenshot: {
+    src: loomMain,
+    alt: 'Loom moodboard with animal photos in a masonry grid',
+  },
+  description:
+    'A moodboard maker. Paste a link or upload images, drag them into place, and export any board as a PNG. Everything saves on your device.',
+  stack: ['JavaScript', 'IndexedDB', 'Muuri'],
+  liveUrl: 'https://nuvairea.github.io/loom/',
+  codeUrl: 'https://github.com/nuvairea/loom',
+};
 
 export default projects;
